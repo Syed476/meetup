@@ -35,6 +35,7 @@ module.exports = (config) => {
 
   app.use(async (req, res, next) => {
     try {
+      req.session.visits = req.session.visits ? req.session.visits + 1:1;
       const names = await speakers.getNames();
       res.locals.speakerNames = names;
       return next();

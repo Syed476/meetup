@@ -1,8 +1,8 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const cookieParser = require ('cookie-parser');
 const mongoose = require('mongoose');
-const MongoStore = require('connect-mongo')(session);
+const session = require ('express-session');
+const MongoStore = require('connect-mongo');
 const path = require('path');
 const createError = require('http-errors');
 const bodyParser = require('body-parser');
@@ -25,16 +25,17 @@ module.exports = (config) => {
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cookieParser());
-
   app.use(session({
-    secret: 'very secret 12345',
-    resave: true,
-    saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  }));
-
+    secret:'very secret 222'
+    resave:true,
+    saveUninitialized:false,
+    store: new MongoStore({
+      mon
+    })
+  }))
   app.use(async (req, res, next) => {
     try {
+      req.session.visits = req.session.visits ? req.session.visits +1:1;
       const names = await speakers.getNames();
       res.locals.speakerNames = names;
       return next();

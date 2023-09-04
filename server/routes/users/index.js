@@ -4,8 +4,8 @@ const UserModel = require('../../models/UserModel');
 const router = express.Router();
 
 module.exports = () => {
+  router.get('/login', (req, res) => res.render('users/login', { error: req.query.error }));
   router.get('/registration', (req, res) => res.render('users/registration', { success: req.query.success }));
-
   router.post('/registration', async (req, res, next) => {
     try {
       const user = new UserModel({
